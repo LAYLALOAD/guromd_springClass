@@ -3,6 +3,7 @@ package com.java.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,87 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	@RequestMapping("/board/boardList")
-	public String boardList(Model model) {
-		//게시글 전체 가져오기
-		ArrayList<BoardDto> list = boardService.selectAll();
-		model.addAttribute("list", list);
-		return "board/boardList";
+	@PostMapping("/board/boardReply") //boardReply 저장
+	public String doBoardReply(BoardDto bdto,@RequestPart MultipartFile file
+			,Model model) throws Exception {
+		//게시글 1개 저장
+		String fileName="";
+				
+		//파일이 있을 경우 파일저장
+		if(!file.isEmpty()) {
+			String ori_fileName = file.getOriginalFilename(); //실제 파일 이름
+			UUID uuid = UUID.randomUUID(); //랜덤숫자생성
+			fileName = uuid+"_"+ori_fileName; //변경파일이름 - 중복방지
+			String uploadUrl = "c:/upload/"; //파일업로드 위치
+			File f = new File(uploadUrl+fileName);
+			file.transferTo(f); //파일저장
+		}
+		System.out.println("doBoardReply bfile: "+fileName);
+		bdto.setBfile(fileName);
+		System.out.println("doBoardReply bgroup : "+bdto.getBgroup());
+		boardService.insertReplyOne(bdto);
+		return "redirect:boardList";
+	}//답변달기 저장
+	
+	@GetMapping("/board/boardReply") //boardReply view
+	public String doBoardReply(int bno, Model model) {
+		System.out.println("boardReply bno : "+bno);
+		BoardDto bdto = boardService.selectOne(bno); //1개 가져오기
+		model.addAttribute("bdto", bdto);
+		return "board/boardReply";
+	}//답변달기 view
+	
+	
+	@PostMapping("/board/boardUpdate") //boardUpdate 저장
+	public String doBoardUpdate(BoardDto bdto,@RequestPart MultipartFile file,
+			Model model) throws Exception {
 		
+		//게시글 1개 수정
+		System.out.println("doBoardUpdate bdto : "+bdto.getBno());
+		System.out.println("doBoardUpdate bdto : "+bdto.getBfile()); //예전파일이름
+		System.out.println("doBoardUpdate file : "+file.getOriginalFilename()); //새로등록한 파일 이름
+		
+		String fileName="";
+		//파일이 있을 경우 파일저장
+		if(!file.isEmpty()) {
+			String ori_fileName = file.getOriginalFilename(); //실제 파일 이름
+			UUID uuid = UUID.randomUUID(); //랜덤숫자생성
+			fileName = uuid+"_"+ori_fileName; //변경파일이름 - 중복방지
+			String uploadUrl = "c:/upload/"; //파일업로드 위치
+			File f = new File(uploadUrl+fileName);
+			file.transferTo(f); //파일저장
+			bdto.setBfile(fileName);
+		}
+		boardService.updateOne(bdto);
+		return "redirect:boardList";
+	}
+	
+	@GetMapping("/board/boardUpdate") //boardUpdate view
+	public String boardUpdate(int bno, Model model) {
+		System.out.println("boardUpdate bno : "+bno);
+		BoardDto bdto = boardService.selectOne(bno);
+		model.addAttribute("bdto", bdto);
+		return "board/boardUpdate";
+	}
+	
+	@RequestMapping("/board/boardDelete")
+	public String boardDelete(int bno) {
+		System.out.println("boardDelete : "+bno);
+		boardService.deleteOne(bno);
+		return "redirect:boardList";
+	}
+	
+	@RequestMapping("/board/boardList")
+	public String boardList(@RequestParam(defaultValue = "1")int page, Model model) {
+		//게시글 전체 가져오기
+		HashMap<String, Object> map = boardService.selectAll(page);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("page", map.get("page"));
+		model.addAttribute("listCount", map.get("listCount"));
+		model.addAttribute("startPage", map.get("startPage"));
+		model.addAttribute("endPage", map.get("endPage"));
+		model.addAttribute("maxPage", map.get("maxPage"));
+		return "board/boardList";
 	}//boardList
 	
 	@RequestMapping("/board/boardView")
@@ -49,7 +124,7 @@ public class BoardController {
 	
 	@PostMapping("/board/boardWrite")
 	public String doBoardWrite(BoardDto bdto, @RequestPart MultipartFile file,
-			Model model) throws Exception, IOException {
+			Model model) throws Exception {
 		//게시글 1개 저장
 		String fileName="";
 		
