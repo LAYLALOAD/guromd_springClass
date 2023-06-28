@@ -33,14 +33,12 @@
     		  alert("2글자 이상 입력하셔야 합니다.");
     		  $("#s_word").focus();
     		  return false;
-    	  }else{
-    		  alert("성공");
-    		  return false;
     	  }
+    	  search.submit();
       }
     </script>
     <div class="wrapper">
-      <form action="#" name="search" method="post">
+      <form action="/board/boardList" name="search" method="post">
         <select name="category" id="category">
           <option value="all">전체</option>
           <option value="btitle">제목</option>
@@ -48,7 +46,8 @@
         </select>
 
         <div class="title">
-          <input type="text" name="s_word" id="s_word" size="16">
+          <input type="text" style="display: none">
+          <input type="text" name="s_word" id="s_word" value="${s_word}" size="16">
         </div>
   
         <button type="button" onclick="searchBtn()"><i class="fas fa-search"></i></button>
@@ -79,7 +78,7 @@
         <c:forEach begin="1" end="${board.bindent}" step="1" >
           <img src="/images/icon_reply.png">
         </c:forEach>
-          <a href="boardView?bno=${board.bno}">${board.btitle}</a>
+          <a href="boardView?bno=${board.bno}&page=${page}&category=${category}&s_word=${s_word}">${board.btitle}</a>
         </td>
         <td>${board.id}</td>
         <td>
@@ -94,7 +93,7 @@
     <ul class="page-num">
       <!-- 첫페이지 이동 -->
       <c:if test="${page !=1}">
-        <a href="/board/boardList?page=1"><li class="first"></li></a>
+        <a href="/board/boardList?page=1&category=${category}&s_word=${s_word}"><li class="first"></li></a>
       </c:if>
       <c:if test="${page ==1}">
         <li class="first"></li>
@@ -102,7 +101,7 @@
       
       <!-- 이동페이지 이동 -->
       <c:if test="${page>1}">
-        <a href="/board/boardList?page=${page-1}"><li class="prev"></li></a>
+        <a href="/board/boardList?page=${page-1}&category=${category}&s_word=${s_word}"><li class="prev"></li></a>
       </c:if>
       <c:if test="${page==1}">
        <li class="prev"></li>
@@ -110,7 +109,7 @@
       <!-- 페이지 리스트 -->
       <c:forEach begin="${startPage}" end="${endPage}" step="1" var="num">
         <c:if test="${num != page}">
-          <a href="/board/boardList?page=${num}">
+          <a href="/board/boardList?page=${num}&category=${category}&s_word=${s_word}">
             <li class="num"><div>${num}</div></li>
           </a>
         </c:if>
@@ -120,14 +119,14 @@
       </c:forEach>
       <!-- 다음페이지 이동 -->
       <c:if test="${page<maxPage}">
-        <a href="/board/boardList?page=${page+1}"><li class="next"></li></a>
+        <a href="/board/boardList?page=${page+1}&category=${category}&s_word=${s_word}"><li class="next"></li></a>
       </c:if>
       <c:if test="${page==maxPage }">
         <li class="next"></li>
       </c:if>
       <!-- 끝페이지 이동 -->
       <c:if test="${page != maxPage }">
-	      <a href="/board/boardList?page=${maxPage}">
+	      <a href="/board/boardList?page=${maxPage}&category=${category}&s_word=${s_word}">
 	        <li class="last"></li>
 	      </a>
       </c:if>

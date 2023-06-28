@@ -28,6 +28,9 @@
       <table>
       <input type="hidden" name="bno" value="${bdto.bno}">
       <input type="hidden" name="bfile" value="${bdto.bfile}">
+      <input type="hidden" name="page" value="${page}">
+      <input type="hidden" name="category" value="${category}">
+      <input type="hidden" name="s_word" value="${s_word}">
         <colgroup>
           <col width="15%">
           <col width="85%">

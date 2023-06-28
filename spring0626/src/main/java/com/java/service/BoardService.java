@@ -8,10 +8,10 @@ import com.java.dto.BoardDto;
 public interface BoardService {
 
 	//게시글 전체 가져오기
-	HashMap<String, Object> selectAll(int page);
+	HashMap<String, Object> selectAll(int page, String category, String s_word);
 
 	//게시글 1개 가져오기
-	BoardDto selectOne(int bno);
+	HashMap<String, Object> selectOne(int bno);
 
 	//게시글 1개저장
 	void insertOne(BoardDto bdto);
