@@ -16,7 +16,7 @@
   
    <!-- 하단댓글 전체 가져오기 -->
   <select id="selectComAll" resultType="com.java.dto.CommentDto">
-    select * from commentBoard where bno=#{bno}
+    select * from commentBoard where bno=#{bno} order by cno desc
   </select>
   
   <!-- 하단댓글 저장 -->
@@ -26,8 +26,14 @@
     </selectKey>
     insert into commentBoard values
     (#{cno},#{bno},#{id},#{cpw},#{ccontent},sysdate)
-  
   </insert>
+  
+  <!-- 하단댓글 1개 가져오기 -->
+  <select id="selectComOne" resultType="com.java.dto.CommentDto">
+    select * from commentboard where cno=#{cno}
+  </select>
+
+  
   
 
 </mapper>
