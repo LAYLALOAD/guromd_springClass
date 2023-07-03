@@ -49,4 +49,21 @@ public class BoardServiceImpl implements BoardService {
 		return cdto;
 	}
 
+	@Override //하단댓글 1개 삭제
+	public void commentDelete(int cno) {
+		boardMapper.commentDelete(cno);
+		
+	}
+
+	@Override //하단댓글 수정저장
+	public CommentDto commentUpdateSave(CommentDto comDto) {
+		//1개 수정
+		boardMapper.commentUpdateSave(comDto);
+		//1개 가져오기
+		CommentDto cdto = boardMapper.selectComOne(comDto);
+		
+		return cdto;
+		
+	}
+
 }

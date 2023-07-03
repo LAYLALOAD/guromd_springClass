@@ -32,6 +32,16 @@
   <select id="selectComOne" resultType="com.java.dto.CommentDto">
     select * from commentboard where cno=#{cno}
   </select>
+  
+  <!-- 하단댓글 1개 삭제 -->
+  <delete id="commentDelete">
+    delete commentboard where cno=#{cno}
+  </delete>
+  
+  <!-- 하단댓글 수정저장 -->
+  <update id="commentUpdateSave">
+    update commentboard set cpw=#{cpw}, ccontent=#{ccontent}, cdate=sysdate where cno=#{cno}
+  </update>
 
   
   
