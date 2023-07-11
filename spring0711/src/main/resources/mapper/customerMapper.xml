@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.CustomerMapper">
+    <select id="selectAll" resultType="com.java.dto.CustomerDto">
+        select * from board
+    </select>
+    
+    <select id="selectAll2" resultMap="memCustDtoMap">
+        select a.*,pw,name,phone,gender,hobby
+		from board a,member b
+		where a.id = b.id
+    </select>
+    
+    <resultMap id="memCustDtoMap" type="com.java.dto.MemCustDto" >
+       <collection property="memberDto" resultMap="memberDtoMap"  />
+       <collection property="customerDto" resultMap="customerDtoMap"  />
+    </resultMap>
+    <resultMap id="customerDtoMap" type="com.java.dto.CustomerDto" >
+      <result column="bno" property="bno" />
+      <result column="id" property="id" />
+      <result column="btitle" property="btitle" />
+      <result column="bcontent" property="bcontent" />
+      <result column="bdate" property="bdate" />
+      <result column="bhit" property="bhit" />
+      <result column="bgroup" property="bgroup" />
+      <result column="bstep" property="bstep" />
+      <result column="bindent" property="bindent" />
+      <result column="bfile" property="bfile" />
+    </resultMap>
+    <resultMap id="memberDtoMap" type="com.java.dto.MemberDto" >
+      <result column="id" property="id" />
+      <result column="pw" property="pw" />
+      <result column="name" property="name" />
+      <result column="phone" property="phone" />
+      <result column="gender" property="gender" />
+      <result column="hobby" property="hobby" />
+    </resultMap>
+</mapper>
