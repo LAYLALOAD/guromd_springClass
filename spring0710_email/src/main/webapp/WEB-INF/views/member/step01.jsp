@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="../css/reset.css?v=Y" />
 <link rel="stylesheet" type="text/css" href="../css/layout.css?v=Y" />
 <link rel="stylesheet" type="text/css" href="../css/content.css?v=Y" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/top_navi.js"></script>
 <script type="text/javascript" src="../js/left_navi.js"></script>
@@ -29,6 +33,9 @@ $(document).ready(function() {
 
 });
 </script>
+<style>
+  .memberbd{display: none;}
+</style>
 </head>
 <body>
 
@@ -248,11 +255,113 @@ $(document).ready(function() {
 
 					<!-- Btn Area -->
 					<div class="btnAreaCenter">
-						<a href="#" class="gbtn">휴대폰인증</a></li>
+						<a onclick="emailView()" style="cursor: pointer;" class="gbtn">이메일인증</a></li>
 					</div>
 					<!-- //Btn Area -->
-
-
+					<br>
+					<script>
+					  let tempcode="";
+					
+					  function emailView(){
+						   alert("이름과 이메일을 입력한 후 인증코드 발송을 클릭하세요.");
+						   $(".memberbd").css("display","block");
+					  }
+					
+					  function emailBtn(){
+						  //alert("임시번호를 발송합니다.");
+						  //alert($("#mem_name").val());
+						  //alert($("#mem_email").val());
+						  
+						  $.ajax({
+							  url:"/email/emailSend",
+							  type:"post",
+							  data:{"name":$("#mem_name").val(),"email":$("#mem_email").val()},
+							  success:function(data){
+								  alert("이메일이 발송되었습니다.");
+								  console.log(data);
+								  //임시비밀번호
+								  tempcode=data;
+								  $("#mem_name").attr("readonly",true);
+								  
+							  },
+							  error:function(){
+								  alert("실패");
+							  }
+							  
+						  }); //ajax: 비동기 통신 (컨트롤러(다른페이지)와 송신하겠다.)
+					  }//f
+					  
+					  function authBtn(){
+						   //alert($("#temp_code").val());
+						   if($("#temp_code").val().length==0){
+							   alert("인증코드를 입력하셔야 진행됩니다.");
+							   $("#temp_code").focus();
+							   return false;
+						   }
+						   
+						   if(tempcode==$("#temp_code").val() ){
+							   alert("이메일 인증이 완료되었습니다.");
+							   location.href="/member/step02";
+						   }else{
+							   alert("이메일 인증코드가 틀립니다. 다시 인증요청을 해주세요.");
+							   $("#temp_code").val("");
+						   }
+					   }
+					  
+					</script>
+					
+					
+					<!-- 이메일 인증 생성 -->
+					<div class="memberbd">
+						<table summary="이름, 아이디, 비밀번호, 비밀번호 확인, 이메일, 이메일수신여부, 주소, 휴대폰, 유선전화, 생년월일 순으로 회원가입 정보를 등록할수 있습니다." class="memberWrite" border="1" cellspacing="0">
+							<caption>이메일인증 입력</caption>
+							<colgroup>
+							<col width="22%" class="tw30" />
+							<col width="*" />
+							</colgroup>
+							<tbody>
+							    <tr>
+									<th scope="row"><span>이름 *</span></th>
+									<td>
+										<ul class="pta">
+											<li class="r10"><input type="text" class="w134" name="name" id="mem_name"/></li> <!-- id: 유효성 검사, 첨규표현식 --><!-- class: css --><!-- name: 키값으로dto의 이름과 같아야함 -->
+											<li><span class="mvalign">※ 한글만 사용 가능.</span></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><span>이메일주소 *</span></th>
+									<td>
+										<ul class="pta">
+											<li class="r10"><input type="text" class="w134" name="email" id="mem_email" /></li>
+											<li><a onclick="emailBtn()" style="cursor: pointer;" class="nbtnMini">인증코드발송</a></li>
+											<li class="pt5"><span class="mvalign">입력하신 이메일로 인증코드가 발송됩니다. 인증코드를 아래에 입력해주세요.</span></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><span>인증코드입력 *</span></th>
+									<td>
+										<ul class="pta">
+											<li class="r10"><input type="text" class="w134" id=temp_code /></li>
+											<li><span class="mvalign">※ 이메일을 확인해서 인증코드를 입력해주세요.</span></li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+					<!-- Btn Area -->
+					<div class="btnArea">
+						<div class="bCenter">
+							<ul>
+								<li><a href="#" class="nbtnbig">취소하기</a></li>
+								<li><a style="cursor: pointer;" onclick="authBtn()" class="sbtnMini">인증완료</a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- //Btn Area -->
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- //contents -->

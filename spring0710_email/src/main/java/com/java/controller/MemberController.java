@@ -13,6 +13,11 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@GetMapping("/member/step01") //회원인증
+	public String step01() {
+		return "member/step01";
+	}
+	
 	@GetMapping("/member/step02") //회원가입 동의
 	public String step02() {
 		return "member/step02";
