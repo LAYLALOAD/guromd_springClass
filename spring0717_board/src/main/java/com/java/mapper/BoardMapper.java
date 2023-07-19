@@ -14,6 +14,9 @@ public interface BoardMapper {
 	ArrayList<BoardDto> selectAll(PageDto pageDto);
 
 	//전게 게시글 수
-	int selectListCount(); 
+	int selectListCount();
+
+	//게시글 1개 저장
+	void insertBoard(BoardDto boardDto); 
 
 }

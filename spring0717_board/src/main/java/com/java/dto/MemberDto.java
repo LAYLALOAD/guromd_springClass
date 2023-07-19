@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class MemberDto {
 	
 	private String id,pw,name,phone,gender;
+	private String[] phones;
 	private String[] hobbys;
 	private String hobby;
 

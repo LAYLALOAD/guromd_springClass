@@ -30,4 +30,12 @@ public class MemberServiceImpl implements MemberService {
 		return resultCode;
 	}
 
+	@Override //회원 1명 가져오기(회원정보수정)
+	public MemberDto selectOneM(String id) {
+		MemberDto mdto = memberMapper.selectOneM(id);
+		String[] phones = mdto.getPhone().split("-");
+		mdto.setPhones(phones);
+		return mdto;
+	}
+
 }

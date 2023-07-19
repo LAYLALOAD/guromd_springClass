@@ -21,4 +21,10 @@
      select count(*) from board
    </select>
    
+   <!-- 게시글 1개 저장 -->
+   <insert id="insertBoard" >
+     insert into board values(board_seq.nextval,
+     #{id},#{btitle},#{bcontent},sysdate,0,board_seq.currval,0,0,#{bfile})
+   </insert>
+   
 </mapper>
