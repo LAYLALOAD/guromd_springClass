@@ -146,19 +146,12 @@
 						</dt>
 						<dd>
 							<div>
-							    <c:if test="${mdto.gender =='male' }">
-								<input type="radio" name="gender" id="male" value="male" checked/>
-							    </c:if>
-							    <c:if test="${mdto.gender !='male' }">
-								<input type="radio" name="gender" id="male" value="male"/>
-							    </c:if>
+								<input type="radio" name="gender" id="male" value="male" 
+								<c:if test="${fn:contains(mdto.gender, 'male')}"> checked</c:if> />
 								<label for="male">남성</label>
-								<c:if test="${mdto.gender =='female' }">
-								<input type="radio" name="gender" id="female" value="female" checked />
-								</c:if>
-								<c:if test="${mdto.gender !='female' }">
-								<input type="radio" name="gender" id="female" value="female" />
-								</c:if>
+								
+								<input type="radio" name="gender" id="female" value="female"
+								<c:if test="${fn:contains(mdto.gender, 'female')}"> checked</c:if> />
 								<label for="female">여성</label>
 							</div>
 						</dd>
@@ -170,111 +163,63 @@
 						<dd>
 							<ul>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'computer') }">
-									<input type="checkbox" name="computer" id="computer" value="computer" checked />
-								    </c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'computer') }">
-									<input type="checkbox" name="computer" id="computer" value="computer" />
-								    </c:if>
+									<input type="checkbox" name="computer" id="computer" value="computer"
+									<c:if test="${fn:contains(mdto.hobby, 'computer')}"> checked</c:if>/>
 									<label for="computer">컴퓨터/인터넷</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'movie') }">
-									<input type="checkbox" name="movie" id="movie" value="movie" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'movie') }">
-									<input type="checkbox" name="movie" id="movie" value="movie" />
-									</c:if>
+									<input type="checkbox" name="movie" id="movie" value="movie" 
+									<c:if test="${fn:contains(mdto.hobby, 'movie')}"> checked</c:if>/>
 									<label for="movie">영화/비디오</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'music') }">
-									<input type="checkbox" name="music" id="music" value="music" checked/>
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'music') }">
-									<input type="checkbox" name="music" id="music" value="music" />
-									</c:if>
+									<input type="checkbox" name="music" id="music" value="music" 
+									<c:if test="${fn:contains(mdto.hobby, 'music')}"> checked</c:if>/>
 									<label for="music">음악</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'shopping') }">
-									<input type="checkbox" name="shopping" id="shopping" value="shopping" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'shopping') }">
-									<input type="checkbox" name="shopping" id="shopping" value="shopping"  />
-									</c:if>
+									<input type="checkbox" name="shopping" id="shopping" value="shopping" 
+									<c:if test="${fn:contains(mdto.hobby, 'shopping')}"> checked</c:if>/>
 									<label for="shopping">쇼핑</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'game') }">
-									<input type="checkbox" name="game" id="game" value="game" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'game') }">
-									<input type="checkbox" name="game" id="game" value="game"  />
-									</c:if>
+									<input type="checkbox" name="game" id="game" value="game" 
+									<c:if test="${fn:contains(mdto.hobby, 'game')}"> checked</c:if>/>
 									<label for="game">게임</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'culture') }">
-									<input type="checkbox" name="culture" id="culture" value="culture" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'culture') }">
-									<input type="checkbox" name="culture" id="culture" value="culture"  />
-									</c:if>
+									<input type="checkbox" name="culture" id="culture" value="culture" 
+									<c:if test="${fn:contains(mdto.hobby, 'culture')}"> checked</c:if>/>
 									<label for="culture">문화/예술</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'golf') }">
-									<input type="checkbox" name="golf" id="golf" value="golf" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'golf') }">
-									<input type="checkbox" name="golf" id="golf" value="golf"  />
-									</c:if>
+									<input type="checkbox" name="golf" id="golf" value="golf" 
+									<c:if test="${fn:contains(mdto.hobby, 'golf')}"> checked</c:if>/>
 									<label for="golf">골프</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'cooking') }">
-									<input type="checkbox" name="cooking" id="cooking" value="cooking" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'cooking') }">
-									<input type="checkbox" name="cooking" id="cooking" value="cooking"  />
-									</c:if>
+									<input type="checkbox" name="cooking" id="cooking" value="cooking" 
+									<c:if test="${fn:contains(mdto.hobby, 'cooking')}"> checked</c:if>/>
 									<label for="cooking">요리</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'interier') }">
-									<input type="checkbox" name="interier" id="interier" value="interier" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'interier') }">
-									<input type="checkbox" name="interier" id="interier" value="interier"  />
-									</c:if>
+									<input type="checkbox" name="interier" id="interier" value="interier" 
+									<c:if test="${fn:contains(mdto.hobby, 'interier')}"> checked</c:if>/>
 									<label for="interier">인테리어</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'leisure') }">
-									<input type="checkbox" name="leisure" id="leisure" value="leisure" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'leisure') }">
-									<input type="checkbox" name="leisure" id="leisure" value="leisure"  />
-									</c:if>
+									<input type="checkbox" name="leisure" id="leisure" value="leisure" 
+									<c:if test="${fn:contains(mdto.hobby, 'leisure')}"> checked</c:if>/>
 									<label for="leisure">레저/여가</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'health') }">
-									<input type="checkbox" name="health" id="health" value="health" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'health') }">
-									<input type="checkbox" name="health" id="health" value="health"  />
-									</c:if>
+									<input type="checkbox" name="health" id="health" value="health" 
+									<c:if test="${fn:contains(mdto.hobby, 'health')}"> checked</c:if>/>
 									<label for="health">건강/다이어트</label>
 								</li>
 								<li>
-								    <c:if test="${ fn:contains(mdto.hobby,'fashion') }">
-									<input type="checkbox" name="fashion" id="fashion" value="fashion" checked />
-									</c:if>
-								    <c:if test="${not fn:contains(mdto.hobby,'fashion') }">
-									<input type="checkbox" name="fashion" id="fashion" value="fashion"  />
-									</c:if>
+									<input type="checkbox" name="fashion" id="fashion" value="fashion" 
+									<c:if test="${fn:contains(mdto.hobby, 'fashion')}"> checked</c:if>/>
 									<label for="fashion">패션/미용</label>
 								</li>
 							</ul>

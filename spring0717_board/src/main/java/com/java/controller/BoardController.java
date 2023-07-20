@@ -1,5 +1,6 @@
 package com.java.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.java.dto.BoardDto;
@@ -20,6 +22,22 @@ import com.java.service.BoardService;
 public class BoardController {
 	
 	@Autowired BoardService boardService;
+	
+	@PostMapping("/board/reviewAjax")
+	@ResponseBody //데이터로 넘겨줌
+	public ArrayList<BoardDto> reviewAjax(int bno, PageDto pageDto) {
+		pageDto.setPage(1);
+		System.out.println("BoardController bno : "+bno);
+		
+		//게시글 여러개 가져오기
+		ArrayList<BoardDto> list = boardService.selectBoardAll(); //mapper데이터 여러개 가져옴.
+		
+		//게시글 1개 가져오기
+		//BoardDto bdto = boardService.selectOne(bno); //mapper데이터 1개를 가져옴.
+		//bdto.setBfiles(bdto.getBfile().split(",")); //bfile 1개 파일이름을 배열로 변환
+		
+		return list;
+	}
 	
 	@GetMapping("/board/boardWrite")
 	public String boardWrite() {

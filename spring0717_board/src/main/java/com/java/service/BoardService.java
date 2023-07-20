@@ -1,5 +1,6 @@
 package com.java.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,5 +16,11 @@ public interface BoardService {
 
 	//게시글 1개 저장
 	void insertBoard(BoardDto boardDto, List<MultipartFile> files);
+
+	//게시글 1개 가져오기
+	BoardDto selectOne(int bno);
+
+	//게시글 여러개 가져오기
+	ArrayList<BoardDto> selectBoardAll();
 
 }

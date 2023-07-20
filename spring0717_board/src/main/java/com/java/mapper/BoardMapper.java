@@ -17,6 +17,12 @@ public interface BoardMapper {
 	int selectListCount();
 
 	//게시글 1개 저장
-	void insertBoard(BoardDto boardDto); 
+	void insertBoard(BoardDto boardDto);
+
+	//게시글 1개 가져오기
+	BoardDto selectOne(int bno);
+
+	//게시글 여러개 가져오기
+	ArrayList<BoardDto> selectBoardAll(); 
 
 }

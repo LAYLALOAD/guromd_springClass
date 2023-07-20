@@ -221,12 +221,42 @@
 	 				</li>
 	 			</ul>
 	 		</div>
+	 		<script>
+	 		  function boardBtn() {
+	 			  alert("글을 변경합니다.");
+	 			  //ajax : 화면이 변경되지 않으면서, controller에서 데이터를 가져올 수 있는 비동기식 방법
+	 			  $.ajax({
+	 				  url:"/board/reviewAjax",
+	 				  type:"post",
+	 				  data:{"bno":"53"},
+	 				  dataType:"json",
+	 				  success:function(data) {
+	 					  console.log("data : "+data);
+	 					  console.log("data : "+data.bcontent);
+	 					  //console.log("data : "+data.bfiles[0]);
+	 					  alert("controller에서 데이터 받기 성공!!");
+	 					  
+	 				      var arrSrc = data[0].bfile.split(",");  //자바스크립트 split함수 사용
+	 				      console.log(arrSrc[0]);
+	 				      var src = '/upload/'+ arrSrc[0];
+	 					  //받은 데이터를 html에 넣음.
+	 					  $(".review_ajax1").text(data[0].btitle);
+	 					  $(".review_ajax2").html(data[0].bcontent);
+	 					  $(".review_ajax3").prop("src", src);
+	 				   
+	 				  },
+	 				  error:function(){
+	 					  alert("데이터 받기 실패!!");
+	 				  }
+	 			  });
+	 		  }//boardBtn
+	 		</script>
 	 		<div id="review">
-	 			<h2>생생한 리뷰</h2>
+	 			<h2 class="review_ajax1">생생한 리뷰</h2>
 	 			<div>
 	 				<span></span>
 	 				<span>속초식 코다리찜</span>
-	 				<span>
+	 				<span class="review_ajax2">
 						재료가 워낙 좋으니 생선이라도 비린내 걱정
 						<br>없이 맛있었어요.나가서 사먹는것보다
 						<br>내 집에서 믿고먹는 맛집, 쿡킷입니다!
@@ -236,10 +266,10 @@
 	 				<div>
 	 					<a href="#"></a>
 			 			<span>1/5</span>
-			 			<a href="#"></a>
+			 			<a onclick="boardBtn()" style="cursor: pointer;"></a>
 	 				</div>
 	 			</div>
-	 			<img alt="코다리찜1" src="images/review01.jpg">
+	 			<img class="review_ajax3" alt="코다리찜1" src="images/review01.jpg">
 	 			<img alt="코다리찜2" src="images/review02.png">
 	 			<span></span>
 	 		</div>
