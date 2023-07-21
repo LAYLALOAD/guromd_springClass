@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.dto.BoardDto;
+import com.java.dto.Search;
 import com.java.mapper.BoardMapper;
 
 @Service
@@ -17,11 +18,11 @@ public class BoardServiceImpl implements BoardService {
 	BoardMapper boardMapper;
 	
 	@Override
-	public HashMap<String, Object> selectAll(int page, String category, String s_word) {
+	public HashMap<String, Object> selectAll(int page, Search search) {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		// 게시글 전체 개수
-		int listCount = boardMapper.selectListCount(category,s_word);
+		int listCount = boardMapper.selectListCount(search);
 		System.out.println("selectAll listCount : "+listCount);
 		// 최대페이지
 		int maxPage = (int) Math.ceil((double)listCount/10); //33/10 -> 4개 page 
@@ -33,7 +34,8 @@ public class BoardServiceImpl implements BoardService {
 
 		//endPage가 최대페이지보다 더 크면 최대페이지까지만 노출
 		if(endPage>maxPage) endPage=maxPage;
-		ArrayList<BoardDto> list = boardMapper.selectAll(startRow,endRow,category,s_word);
+		System.out.println("endPage : "+endPage);
+		ArrayList<BoardDto> list = boardMapper.selectAll(startRow,endRow,search);
 		
 		map.put("list", list);
 		map.put("listCount", listCount);
@@ -41,8 +43,8 @@ public class BoardServiceImpl implements BoardService {
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
 		map.put("page", page);
-		map.put("category", category);
-		map.put("s_word", s_word);
+		map.put("category", search.getCategory());
+		map.put("s_word", search.getS_word());
 		
 		return map;
 	}

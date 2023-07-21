@@ -24,15 +24,15 @@
 		select * from (select rownum rnum, a.* from
 		(select * from board 
 		
-		<if test="category == 'all'">
-			where btitle like '%'||#{s_word}||'%' or bcontent like '%'||#{s_word}||'%'
-		</if>
-		<if test="category == 'btitle'">
-			where btitle like '%'||#{s_word}||'%'
-		</if>
-		<if test="category == 'bcontent'">
-			where bcontent like '%'||#{s_word}||'%'
-		</if>
+			<if test="search.category == 'all'">
+				where btitle like '%'||#{search.s_word}||'%' or bcontent like '%'||#{search.s_word}||'%'
+			</if>
+			<if test="search.category == 'btitle'">
+				where btitle like '%'||#{search.s_word}||'%'
+			</if>
+			<if test="search.category == 'bcontent'">
+				where bcontent like '%'||#{search.s_word}||'%'
+			</if>
 		
 	    <!-- 공통영역 -->
 	    <![CDATA[

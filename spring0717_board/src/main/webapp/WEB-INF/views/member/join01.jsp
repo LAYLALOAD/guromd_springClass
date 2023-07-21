@@ -7,6 +7,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="/css/style_header.css">
 		<link rel="stylesheet" type="text/css" href="/css/style_join01_terms.css">
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		<link rel="stylesheet" type="text/css" href="/css/style_footer.css">
 		<title>회원가입 - 약관동의</title>
 	</head>
@@ -189,8 +190,8 @@
 				</div>
 				
 				<div id="terms_button">
-					<input type="reset" value="취소하기" />
-					<input type="submit" value="가입하기" />
+					<input type="button" onclick="location.href='/'" value="취소하기" />
+					<input type="button" onclick="join01Btn()" value="가입하기" />
 				</div>
 				
 			</form>
