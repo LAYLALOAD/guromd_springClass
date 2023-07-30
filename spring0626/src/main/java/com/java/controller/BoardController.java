@@ -1,7 +1,9 @@
 package com.java.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -65,7 +67,7 @@ public class BoardController {
 	}//답변달기 저장
 	
 	@GetMapping("/board/boardReply") //boardReply view
-	public String doBoardReply(int bno, Model model) {
+	public String BoardReply(int bno, Model model) {
 		System.out.println("boardReply bno : "+bno);
 		HashMap<String, Object> map = boardService.selectOne(bno);
 		model.addAttribute("bdto", map.get("bdto"));
@@ -91,7 +93,7 @@ public class BoardController {
 			int page, String category, String s_word, Model model) throws Exception {
 		
 		//게시글 1개 수정
-		System.out.println("doBoardUpdate bdto : "+bdto.getBno());
+		System.out.println("doBoardUpdate bdto bno : "+bdto.getBno());
 		
 		String fileName="";
 		//파일이 있을 경우 파일저장
@@ -128,11 +130,11 @@ public class BoardController {
 		//게시글 1개 가져오기
 		HashMap<String, Object> map = boardService.selectOne(bno);
 		model.addAttribute("bdto", map.get("bdto"));
-		model.addAttribute("prevDto", map.get("prevDto"));
-		model.addAttribute("nextDto", map.get("nextDto"));
-		model.addAttribute("category", category);
-		model.addAttribute("s_word", s_word);
-		model.addAttribute("page", page);
+		model.addAttribute("prevDto",map.get("prevDto"));
+		model.addAttribute("nextDto",map.get("nextDto"));
+		model.addAttribute("category",category);
+		model.addAttribute("s_word",s_word);
+		model.addAttribute("page",page);
 		return "board/boardView";
 	}
 	
